@@ -1,0 +1,84 @@
+{
+  "sourceCommit": "59600977bfba0d89599452fc671279d8ae729e4e",
+  "accessed": "2026-09-24",
+  "gdal": "GDAL 3.13.3 \"Iowa City\", released 2026/08/13",
+  "sources": {
+    "US5OAKEF": {
+      "url": "https://www.charts.noaa.gov/ENCs/US5OAKEF.zip",
+      "sha256": "56be022c0d08c1341ab286087c241a529edcdaaf5f620b9d2a4d31c4e3e10c3a"
+    },
+    "US5OAKEG": {
+      "url": "https://www.charts.noaa.gov/ENCs/US5OAKEG.zip",
+      "sha256": "8c4c241b0b2acf44a47b7ff8eb03c579f060cf1cbc56b39c68bc42d28bedd8fa"
+    },
+    "US5OAKEH": {
+      "url": "https://www.charts.noaa.gov/ENCs/US5OAKEH.zip",
+      "sha256": "98b056108112f9de98dee7777c5ad8b88872105fbd689b9189f28ae43856b9ca"
+    },
+    "US5OAKFF": {
+      "url": "https://www.charts.noaa.gov/ENCs/US5OAKFF.zip",
+      "sha256": "a39f938631a72bce2cb64256b17880c6acdbda8166b628908978c368181d0140"
+    },
+    "US5OAKFG": {
+      "url": "https://www.charts.noaa.gov/ENCs/US5OAKFG.zip",
+      "sha256": "cb8b3bf398c03f05086546c0163fa99350fc8c33e8074c490e49f686541ab347"
+    },
+    "US5OAKFH": {
+      "url": "https://www.charts.noaa.gov/ENCs/US5OAKFH.zip",
+      "sha256": "498123def3527bf82d301a659e02036a472e9d6902692c6120c4f20d40296265"
+    }
+  },
+  "features": {
+    "LNDARE": 206,
+    "COALNE": 126,
+    "DEPCNT": 518,
+    "SOUNDG": 113,
+    "BUYLAT": 0,
+    "BCNLAT": 38,
+    "LIGHTS": 112,
+    "BRIDGE": 45,
+    "SEAARE": 57
+  },
+  "lightRecord": {
+    "type": "Feature",
+    "properties": {
+      "RCID": 59,
+      "PRIM": 1,
+      "GRUP": 2,
+      "OBJL": 75,
+      "RVER": 1,
+      "AGEN": 550,
+      "FIDN": 21891867,
+      "FIDS": 50,
+      "LNAM": "0226014E0B1B0032",
+      "CATLIT": [],
+      "COLOUR": [
+        "1"
+      ],
+      "EXCLIT": 4,
+      "HEIGHT": 65.2,
+      "LITCHR": 2,
+      "SIGGRP": "(1)",
+      "SIGPER": 5.0,
+      "SIGSEQ": "00.5+(04.5)",
+      "VALNMR": 20.0,
+      "SCAMIN": 29999,
+      "SORDAT": "20050412",
+      "SORIND": "US,US,reprt,11thCGD,LNM 15/05"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        -122.4221417,
+        37.8262289
+      ]
+    },
+    "sourceCell": "US5OAKFG"
+  },
+  "mask": {
+    "landPixels": 2362795,
+    "visiblePixels": 3617721,
+    "clearancePixels": 48
+  },
+  "interpretation": "Decorative rotating sweep; ENC contains no sector limits for this light. Full-circle white coverage is used, clipped by first charted land. Not a claim of physical optic rotation or certified navigation portrayal."
+}

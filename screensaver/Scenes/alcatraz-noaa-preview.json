@@ -1,0 +1,43 @@
+{
+  "id": "alcatraz-noaa-preview",
+  "title": "Alcatraz \u2014 San Francisco Bay \u00b7 NOAA data preview",
+  "chart": {
+    "center": [
+      -122.446,
+      37.83
+    ],
+    "zoom": 13.0,
+    "logicalWidth": 1728,
+    "logicalHeight": 1117,
+    "deviceScaleFactor": 2,
+    "asset": "alcatraz-noaa-preview@2x.png",
+    "lightVisibilityAsset": "alcatraz-noaa-preview-light-visibility@2x.png"
+  },
+  "light": {
+    "name": "Alcatraz Light",
+    "coordinate": [
+      -122.4221417,
+      37.8262289
+    ],
+    "character": "Fl W 5s",
+    "periodSeconds": 5,
+    "pulses": [
+      {
+        "start": 0,
+        "end": 0.5
+      }
+    ],
+    "anchor": {
+      "x": 0.6608618877365154,
+      "y": 0.5497995438173017
+    },
+    "sectors": [
+      {
+        "startBearing": 0,
+        "endBearing": 360,
+        "colour": "white",
+        "rangeNauticalMiles": 20
+      }
+    ]
+  }
+}

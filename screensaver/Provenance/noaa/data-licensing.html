@@ -1,0 +1,726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "https://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+<head>
+  <!-- META tags -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+
+
+  <!-- ADD Bootstrap and Custom CSS-->
+
+  <link href="/bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/bootstrap-icons.css">
+  <link rel="stylesheet" href="/fancyapps/dist/fancybox.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+
+
+
+
+  <link href="/css/nauticalcharts.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+
+  <!-- ADD Bootstrap and Custom JS-->
+  <script src="/js/jquery-3.6.0.min.js"></script>
+  <script src="/fancyapps/dist/fancybox.umd.js"></script>
+
+
+  <script>
+    function submitForm() {
+      document.getElementById('search_form').submit();
+    }
+
+
+
+
+  </script>
+
+
+
+  <!-- title -->
+  <title>U.S. Office of Coast Survey</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM6YMQ7JH4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-SM6YMQ7JH4');
+  </script>
+
+</head>
+
+
+
+<div class="usa-banner" style="z-index:1000;">
+  <small>
+    <div style="float:left;"><button class="btn btn-primary" style="background:transparent; border:none; "
+        onclick="spinReverse()"></button></div>
+    <div style="text-align:center;font-size: .7777777778rem;"><img class="img-fluid flag" src="/inc/img/flag.png"
+        alt="U.S. flag"> An
+      official website of the United States government.
+      <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+        data-bs-target="#collapseExample" aria-controls="collapseExample">
+        Here's how you know we're official.
+      </a>
+      <div style="float:right;"><button class="btn btn-primary" style="background:transparent; border:none; "
+          onclick="spin()"></button></div>
+    </div>
+
+  </small>
+
+
+</div>
+
+
+<div class="collapse" id="collapseExample" style="background-color: #eaeaea;font-size:1rem;">
+  <div class="card-group" style="text-align:left; background-color: #eaeaea; width:85%; margin:auto;">
+
+    <div class="card card-nohover" style="transform:none;">
+
+      <div class="card-body" style="background-color: #eaeaea;">
+
+        <img src="/inc/img/icon-dot-gov.svg" 6
+          style="width:45px;height:45px;vertical-align: top;float:left;margin-right:5px;" alt="dot gov">
+
+
+        <strong>Official websites use .gov</strong><br />
+        A <strong>.gov</strong> website belongs to an official
+        government organization in the United States.</p>
+      </div>
+    </div>
+    <div class="card" style="transform:none;">
+
+      <div class="card-body" style="background-color: #eaeaea;">
+
+        <img src="/inc/img/icon-https.svg"
+          style="width:45px;height:45px;vertical-align: top;float:left;margin-right:5px;" alt="https">
+        <strong>Secure websites use HTTPS</strong><br />
+
+        A small lock (<i class="bi bi-lock-fill"></i>) or <strong>https://</strong> means you've safely
+        connected to a .gov website. Share &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sensitive
+        information only on official, secure
+        websites.
+
+      </div>
+    </div>
+
+
+
+    <div class="w-100 d-none d-sm-block d-md-none"></div>
+
+
+  </div>
+</div>
+
+<!-- <div class="oldpage">
+  Welcome to the new Office of Coast Survey homepage! We
+  <a href="/survey.html" id="touchpoints-feedback-link">welcome feedback</a>, and still have the
+  <a href="old_index.html">previous version</a> available for a limited time.
+</div> -->
+
+<div class="oldpage"></div>
+
+
+
+
+
+<div class="newBody" id="newBody" style="padding-bottom:10px; z-index:-1000;">
+
+  <body>
+
+
+    <div class="container" style="padding-top:10px;">
+      <div class="row new_header"
+        style="border:thin solid #eaeaea; padding: 0px 0px 0px 0px; border-radius:30px; margin-bottom:10px; box-shadow: 5px 5px 5px #ddd;">
+        <div class="col-md-2 col-xs-3 order-md-1">
+          <div class="top-logo">
+            <a href="https://nauticalcharts.noaa.gov"><img style="height:65px; margin-top:7px;"
+                src="/images/noaa-logo-rgb-2022.png" alt="noaa-logo"></a>
+            <a class="top-text-heading" style="line-height: 20px; text-decoration:none;" href="/index.html">Office
+              of<br />Coast<br /> Survey<br /></a>
+          </div>
+        </div>
+        <div class="col-md-8 col-xs-3 order-md-2">
+          <nav class="navbar navbar-expand-lg navbar-light" style="margin-top:20px;">
+            <div class="mx-lg-auto mr-xs-auto d-sm-flex d-block flex-sm-nowrap" style="text-align:left;">
+
+
+
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                  <!--  <li class="nav-item" style="margin-left:-50px;">
+                    <a class="nav-link" href="/" id="navbarDarkDropdownMenuLink" role="button">
+                      Home
+                    </a>
+                  </li> -->
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      News
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+
+
+                      <li><a class="dropdown-item" href="/updates/">Blog</a></li>
+                      <li><a class="dropdown-item" href="/updates/subscribe/">Subscribe</a></li>
+                    </ul>
+
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      About
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><a class="dropdown-item" href="/about/about.html">About Coast Survey</a></li>
+                      <li><a class="dropdown-item" href="/about/regulations-and-policies.html">Regulations &amp;
+                          Policies</a></li>
+                      <li><a class="dropdown-item" href="/about/survey-vessels.html">Survey Vessels</a></li>
+                      <li><a class="dropdown-item" href="/about/employment-and-internships.html">Employment &amp;
+                          Internships</a>
+
+                      </li>
+
+                      <li><a class="dropdown-item" href="/updates/">Coast Survey Blog</a></li>
+                      <li><a class="dropdown-item" href="/about/contact.html">Contact Us</a></li>
+                    </ul>
+
+                  </li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Charts
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><a class="dropdown-item" href="/charts/noaa-enc.html">NOAA ENC<sup>&reg;</sup></a></li>
+                      <li><a class="dropdown-item"
+                          href="/charts/rescheming-and-improving-electronic-navigational-charts.html">Rescheming and
+                          Improving
+                          ENCs</a></li>
+                      <li><a class="dropdown-item" href="https://distribution.charts.noaa.gov/ENC/rescheme">
+                          Rescheming
+                          Status</a></li>
+
+                      <li><a class="dropdown-item" href="/charts/noaa-custom-charts.html">NOAA Custom
+                          Charts</a></li>
+                      <hr />
+                      <li><a class="dropdown-item" href="https://devgis.charttools.noaa.gov/pod/" target="_blank">NOAA
+                          Custom Chart
+                          App</a></li>
+                      <li><a class="dropdown-item" href="https://distribution.charts.noaa.gov/navigation-updates/">NOAA
+                          Navigation Updates App</a></li>
+                      <hr>
+                      <li><a class="dropdown-item" href="https://charts.noaa.gov/InteractiveCatalog/nrnc.shtml">Chart
+                          Locator</a></li>
+                      <hr>
+                      <li><a class="dropdown-item" href="/enconline/enconline.html">ENC Viewer</a>
+                      <li><a class="dropdown-item" href="/NCDSviewer/">NCDS Prototype Viewer</a>
+                      </li>
+                      <hr>
+                      <li><a class="dropdown-item" href="https://historicalcharts.noaa.gov/">Historical Charts</a></li>
+                      <li><a class="dropdown-item"
+                          href="https://historicalcharts.noaa.gov/search.php?searchType=Nautical%20Chart--Training">Training
+                          Charts</a></li>
+                      <hr>
+                      <li><a class="dropdown-item" href="/charts/chart-updates.html">Chart Updates</a></li>
+
+                      <li><a class="dropdown-item" href="/charts/chart-carriage-requirements.html">Chart Carriage
+                          Requirements</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Publications
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><a class="dropdown-item" href="/publications/coast-pilot/index.html">United States Coast
+                          Pilot<sup>&reg;</sup></a></li>
+                      <li><a class="dropdown-item" href="/publications/us-chart-1.html">U.S. Chart No. 1 (Chart
+                          Symbols)</a></li>
+                      <li style="padding-left:15px;"><a class="dropdown-item"
+                          href="/publications/docs/distances.pdf">Distances
+                          Between U.S. Ports</a></li>
+                      <hr>
+                      <li style="padding-left:15px;"><a class="dropdown-item"
+                          href="/about/docs/about/CoastSurveyStrategicPlanFY23-27.pdf">Strategic Plan 2023-2027</a></li>
+                      <li style="padding-left:15px;"><a class="dropdown-item"
+                          href="/publications/docs/nautical-charting-plan.pdf">Nautical Charting Plan</a></li>
+                      <li style="padding-left:15px;"><a class="dropdown-item"
+                          href="/publications/docs/enc-design-handbook.pdf">ENC Design Handbook</a></li>
+                      <hr>
+                      <li style="padding-left:15px;padding-right:15px;"><a class="dropdown-item"
+                          href="/learn/docs/hydrographic-surveying/ocs-ocean-mapping-strategy.pdf">Coast Survey Ocean
+                          Mapping
+                          Strategy</a></li>
+                      <li><a class="dropdown-item"
+                          href="/publications/national-hydrographic-survey-priorities.html">National
+                          Hydrographic Survey Priorities</a></li>
+                      <li><a class="dropdown-item" href="/publications/standards-and-requirements.html">Standards and
+                          Requirements</a></li>
+                      <hr>
+                      <li><a class="dropdown-item"
+                          href="https://repository.library.noaa.gov/gsearch?collection=&type1=mods.related_series&fedora_terms1=NOS+CS&fedora_term_dropdown_documentType_values1=&fedora_term_dropdown_language_values1=&datepickerA1=&datepickerB1=&andor1=AND&type2=mods.related_series&fedora_terms2=&fedora_term_dropdown_documentType_values2=&fedora_term_dropdown_language_values2=&datepickerA2=&datepickerB2=&andor2=AND&fedora_terms3=&fedora_term_dropdown_documentType_values3=&fedora_term_dropdown_language_values3=&datepickerA3=&datepickerB3=">Coast
+                          Survey Technical Documents</a></li>
+
+                      <li style="margin-left:15px;"><a class="dropdown-item"
+                          href="https://repository.library.noaa.gov/gsearch?collection=&type1=mods.related_series&fedora_terms1=Technical+Memorandum+NOS+CS&fedora_term_dropdown_documentType_values1=&fedora_term_dropdown_language_values1=&datepickerA1=&datepickerB1=&andor1=AND&type2=mods.related_series&fedora_terms2=&fedora_term_dropdown_documentType_values2=&fedora_term_dropdown_language_values2=&datepickerA2=&datepickerB2=&andor2=AND&fedora_terms3=&fedora_term_dropdown_documentType_values3=&fedora_term_dropdown_language_values3=&datepickerA3=&datepickerB3=">Techical
+                          Memos</a></li>
+                      <li style="margin-left:15px;"><a class="dropdown-item"
+                          href="https://repository.library.noaa.gov/gsearch?collection=&type1=mods.related_series&fedora_terms1=Technical+Report+NOS+CS&fedora_term_dropdown_documentType_values1=&fedora_term_dropdown_language_values1=&datepickerA1=&datepickerB1=&andor1=AND&type2=mods.related_series&fedora_terms2=&fedora_term_dropdown_documentType_values2=&fedora_term_dropdown_language_values2=&datepickerA2=&datepickerB2=&andor2=AND&fedora_terms3=&fedora_term_dropdown_documentType_values3=&fedora_term_dropdown_language_values3=&datepickerA3=&datepickerB3=">Technical
+                          Reports</a></li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Data
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                      <li><a class="dropdown-item" href="/data/externalsourcedata.html">External Source Data</a></li>
+                      <li><a class="dropdown-item" href="/data/tools-apps.html">Tools &amp; Apps</a></li>
+                      <li><a class="dropdown-item" href="/data/data-management.html">Data Management</a></li>
+                      <li><a class="dropdown-item" href="/data/data-licensing.html">Data Licensing</a></li>
+                      <li><a class="dropdown-item" href="/data/gis-data-and-services.html">GIS Data &amp; Services</a>
+                      </li>
+                      <li><a class="dropdown-item" href="https://nowcoast.noaa.gov/">nowCOAST&trade;</a></li>
+                      <li><a class="dropdown-item" href="/data/hydrographic-survey-data.html">Hydrographic Survey
+                          Data</a></li>
+                      <li><a class="dropdown-item" href="/data/bluetopo_specs.html">BlueTopo&trade; Specifications</a>
+                      </li>
+
+                      <li><a class="dropdown-item" href="/data/current-year-survey-plans.html">Current Year Survey
+                          Plans</a></li>
+                      <li><a class="dropdown-item" href="/data/us-maritime-limits-and-boundaries.html">U.S. Maritime
+                          Limits and
+                          Boundaries</a></li>
+                      <li><a class="dropdown-item" href="https://tidesandcurrents.noaa.gov">Tides &amp; Currents</a>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Learn
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                       <li><a class="dropdown-item" href="/data/bluetopo.html">BlueTopo&trade;</a></li>
+
+            <li><a class="dropdown-item" href="/learn/chart-source-data.html">Chart Source Data</a></li>
+            <li><a class="dropdown-item" href="/learn/hydrodynamic-model-development.html">Coastal &amp; Ocean Prediction Models</a></li>
+
+            <li><a class="dropdown-item" href="/learn/educational-activities.html">Educational Activities</a></li>
+            <li><a class="dropdown-item" href="/learn/faq.html">Frequently Asked Questions</a></li>
+            <li><a class="dropdown-item" href="/data/hydrographic-surveys-contract-vehicle.html">Hydrographic Surveys Contract Vehicle</a></li>
+            <li><a class="dropdown-item" href="/learn/hydrographic-surveying.html">Hydrographic Surveying</a></li>
+            <li><a class="dropdown-item" href="/learn/nbs.html">National Bathymetric Source</a></li>
+            <li><a class="dropdown-item" href="/about/nav-cast.html">Nav-cast Webinars</a></li>
+
+            <li><a class="dropdown-item" href="/learn/nautical-cartography.html">Nautical Cartography</a></li>
+            <li><a class="dropdown-item" href="/learn/coe.html">NOAA Center of Excellence</a></li>
+
+            <li><a class="dropdown-item" href="/learn/nowcoast.html">nowCOAST&trade;</a></li>
+            <li><a class="dropdown-item" href="https://marinenavigation.noaa.gov">Precision Marine Navigation</a></li>
+            <li><a class="dropdown-item" href="/learn/uncrewed-systems.html">Uncrewed Systems</a></li>
+                    </ul>
+                  </li>
+
+
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      Customer Service
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+
+                      <li><a class="dropdown-item" href="/about/contact.html">Contact Us</a></li>
+
+                      <li><a class="dropdown-item" href="/learn/faq.html">Frequently Asked Questions</a></li>
+
+
+                      <li><a class="dropdown-item" href="/customer-service/regional-managers/index.html">Regional
+                          Navigation
+                          Managers</a></li>
+                      <li><a class="dropdown-item" href="/customer-service/navigation-response.html">Navigation Response
+                          Teams</a></li>
+                      <li><a class="dropdown-item" href="/publications/print-agents.html">Nautical Product Printing and
+                          Distribution</a></li>
+
+                      <li><a class="dropdown-item" href="https://nsd.rdc.noaa.gov/">Staff Directory</a></li>
+                    </ul>
+                  </li>
+
+
+
+
+
+                </ul>
+              </div>
+            </div>
+
+          </nav>
+        </div>
+        <div class="col-md-2 col-xs-2 order-md-3 mb-sm-4" style="justify-content:right;">
+          <form accept-charset="UTF-8" action="https://search.usa.gov/search" id="search_form" method="get"
+            style="--bs-gutter:none;">
+
+            <div class="search-container">
+              <input placeholder='Search...' class='searchinput' type="text" name="query">
+
+              <i class="bi bi-search search-i" onclick="submitForm();"></i>
+              <input id="affiliate" name="affiliate" type="hidden" value="nauticalcharts.noaa.gov" />
+
+            </div>
+          </form>
+          <!-- spacer for XS screens only -->
+          <div class="d-block d-sm-none" style="min-height:20px;"></div>
+        </div>
+      </div>
+    </div>
+
+
+<style>
+    .firstCharacter {
+        font-size: 18px;
+        color: blue;
+
+    }
+</style>
+
+<div class="container container-main">
+
+
+    <!-- Breadcrumbs -->
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Data</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Data Licensing</li>
+        </ol>
+    </nav>
+    <!-- End Breadcrumbs -->
+
+    <!-- Page Title -->
+    <div class="titleBlock">
+        <h1 style="position:relative;">Data Licensing</h1>
+
+
+        <!-- Subheading -->
+        <!-- <h3 style="position:relative;">No Subheading</h3> -->
+
+
+    </div>
+    <!-- image -->
+    <!-- <div class="top-image">
+        <img class="img-fluid" src="/images/noaa-enc-bannerimage-1.jpeg" alt="ENC" />
+    </div> -->
+
+    <!-- Content -->
+    <div class="row" style="margin-top:15px;">
+        <a id="top"></a>
+        <!-- Left side content -->
+        <div class="left-content col-md-9 order-md-1">
+            <!-- Content Title -->
+            <p class="title-divider">
+                Data Licensing in OCS
+                <span></span>
+            </p>
+
+            <p>Why data licensing? Simply stating that data is in the public domain is not good enough for many users. A
+                data license is needed to provide assurance to users in how they may use the data, which expands
+                access of our data to a much wider user base. This aligns the Office of Coast Survey with NOAA's Data
+                Strategy, to maximize usage of federal government data. Furthermore, the machine-readable data license
+                eases and standardizes our handling of data into the National Bathymetric Source, which was built to
+                maintain the license and improves communication to the users downstream.
+            </p>
+
+            <p>Coast Survey adopted the well-known and internationally recognized licenses from <a
+                    href="https://creativecommons.org/about/cclicenses/">Creative Commons</a>. All data acquired by
+                Coast Survey is formally dedicated to the public domain via the Creative Commons Zero 1.0 Universal Public
+                Domain Dedication (CC0-1.0), which removes all copyright from the data so that it may be used by anyone, for
+                any purpose. This license ensures maximum use of our data, to spur and encourage exploration and
+                innovation throughout the industry.</p>
+
+            <p>In order to achieve our national and global mapping objectives, the data acquired by Coast Survey is not
+                enough. Collaboration with our external mapping partners in government, industry, and academia is
+                essential to meeting those goals. However, the data contributed from external sources may have
+                restrictions. If the external data is not already licensed, the provider may assign a data license onto
+                their data prior to contributing to Coast Survey, to define any terms of use. </p>
+
+            <p>We encourage external data contributors to assign CC0-1.0 onto their data, which ensures maximum usage of the data throughout the industry, for anyone's use and for any purpose. An alternative option is the Creative Commons Attribution 4.0 International License (CC-BY-4.0). Under this license, the data may be used by anyone, for any purpose, however the user is legally obligated to provide credit (i.e. attribution) to the provider when using the data in its original form. Please note, however, that it is a community norm to always cite the original data provider, regardless of the license. In other words, use of CC0-1.0 does not exempt users from following such community norms to provide credit to the original data providers. In fact, CC0-1.0 remains the preferred license for data contributors who wish to achieve both maximum data usage and data citation. Because it is completely free of legal barriers, data licensed with CC0-1.0 is most easily used and reused, with continued data citation at each step along the way.</p>
+            <p>Finally, for external
+                contributors that do not want their data to be publicly released, there is an Internal Use Only license
+                option. Data under this license will not be distributed, nor will it be used for any products, such as
+                charts, models, and precision marine navigation. It will be used for survey planning and internal
+                modeling only. </p>
+
+            <p>The full license terms are given below. For external data contributors with more nuanced data
+                restrictions, they are encouraged to contact the Coast Survey External Source Data team at
+                <a href="mailto:esd.team@noaa.gov">esd.team@noaa.gov</a>.
+            </p>
+
+            <p class="title-divider">
+                Full License Terms
+                <span></span>
+            </p>
+            <p><strong>Creative Commons Zero 1.0 Universal Public Domain Dedication (CC0-1.0)</strong><br />Provider is,
+                voluntarily and without financial compensation, providing gridded bathymetric data to the National
+                Oceanic and Atmospheric Administration (NOAA) under a Creative Commons Zero 1.0 Universal public domain
+                dedication (CC0-1.0). </p>
+                <p>NOAA intends to register and integrate Provider's Data into the Office of Coast Survey
+                source database, and merge it with other datasets to create products derived from the database. More
+                specifically, NOAA use of Provider's Data may include, but is not limited to, creating electronic
+                navigational charts, mesh generated products for marine modeling (flooding models, tsunami inundation,
+                VDATUM water level models, for example), and precision navigation products (S-102); hydrographic survey
+                planning; and hydrographic data gap analysis for Seabed 2030 initiatives. NOAA products, including those
+                created in whole or in part with the Provider's Data, will be publicly released with no restrictions on
+                their use. </p><p>Furthermore, NOAA intends to publicly release the Provider's Data in its original form under
+                the same CC0-1.0 public domain dedication
+                (<a
+                    href="https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1">https://creativecommons.org/publicdomain/zero/1.0/?ref=chooser-v1</a>).
+                However, in no event is NOAA liable
+                to the Provider for third party use of Provider Data or products NOAA derives using Provider Data.</p>
+
+            <p><strong>Creative Commons Attribution 4.0 International License (CC-BY-4.0)</strong><br />Provider is,
+                voluntarily and without financial compensation, providing gridded bathymetric data to the National
+                Oceanic and Atmospheric Administration (NOAA) under a Creative Commons Attribution 4.0 International
+                license (CC-BY-4.0).</p>
+            <p>NOAA intends to register and integrate Provider's Data into the Office of Coast Survey's source database,
+                and merge it with other datasets to create products derived from the database. More specifically, NOAA
+                use of Provider's Data may include, but is not limited to, creating electronic navigational charts, mesh
+                generated products for marine modeling (flooding models, tsunami inundation, VDATUM water level models,
+                for example), and precision navigation products (S-102); hydrographic survey planning; and hydrographic
+                data gap analysis for Seabed 2030 initiatives. NOAA products, including those created in whole or in
+                part with the Provider's Data, will be publicly released with no restrictions on their use. </p>
+            <p>Furthermore, NOAA intends to publicly release the Provider's Data in its original form under the CC-BY-4.0 (<a
+                    href="https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1">https://creativecommons.org/licenses/by/4.0/?ref=chooser-v1</a>)
+                License, and will give credit to the
+                Provider. However, in no event is NOAA liable to the Provider for third party use of Provider Data or
+                products NOAA derives using Provider Data.
+            </p>
+
+            <p><strong>Internal Use Only</strong><br />Provider is, voluntarily and without financial compensation,
+                providing gridded bathymetric data to the National Oceanic and Atmospheric Administration (NOAA). The
+                data will be for internal use only by NOAA and its contractors and affiliates, to the extent permitted
+                under Federal laws and regulations. </p><p>NOAA will not integrate Provider's Data into the Office of Coast
+                Survey's source database, nor will NOAA create any derivative products, for example, merging with other
+                datasets to create products derived from the database, such as electronic navigational charts, mesh
+                generated products for marine modeling (flooding models, tsunami inundation, VDATUM water level models,
+                for example), and precision navigation products (S-102). The Provider's Data will be used for internal
+                NOAA purposes, including hydrographic survey planning, and hydrographic data gap analysis for Seabed
+                2030 initiatives. </p>
+
+        </div>
+
+
+
+
+
+
+        <!-- Right side content -->
+
+        <div class="col-md-3 order-md-2">
+
+            <div class="related-links">
+                <p class="title-divider">
+                    <strong>Data Management Plans</strong>
+                    <span></span>
+                </p>
+
+                <p class="related-link-item"><a href="data-management.html">Data Management</a></p>
+                <p class="related-link-item"><a href="https://sciencecouncil.noaa.gov/Portals/0/2020%20Data%20Strategy.pdf?ver=2020-09-17-150024-997">NOAA Data Strategy</a>
+                </p>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- Below Main Content -->
+
+
+
+</div>
+
+<div class="container" style="margin-bottom:15px;margin-top:15px;">
+    <div class="footBlock"></div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="historyModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Law of the Sea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align:center;margin-bottom: 15px">
+                    <strong style="text-align: center">HISTORY OF THE MARITIME ZONES UNDER INTERNATIONAL LAW</strong>
+                </div>
+                <strong>FROM THE CANNON SHOT RULE TO UNCLOS</strong>
+                <p>For hundreds of years, the marine environment was free from regulation of fishing, shipping, and
+                    resource exploitation. Over time, coastal States (countries) had an increased interest in national
+                    security and the enforcement of laws to protect its commerce and marine resources. As a result, a
+                    balance was needed to maintain the freedom of navigation that many foreign maritime interests had
+                    relied upon. This need for balance is captured in the history of the law of the sea.</p>
+                <p>The birth of a nation's authority to control its coastal waters has been traced back to the sixteenth
+                    century. In the seventeenth century, the father of international law and doctrine on the freedom of
+                    the seas, Grotius, recognized the existence of a nation's jurisdiction over the coastal waters that
+                    could be effectively controlled from the land. The extent to which a nation could control its
+                    coastal waters was largely based on the reach of its cannons on the shore. Thus, the 3 nautical mile
+                    (nm) limit of the territorial sea resulted from what is often referred to as the “cannon shot” rule.
+                    In the U.S., the creation of a territorial sea and contiguous zone date back to as early as the late
+                    1700s in response to issues of national security and law enforcement at coastal areas, including a
+                    1793 diplomatic note sent from Thomas Jefferson and legislation passed by Congress in 1799 to allow
+                    the boarding of foreign flag vessels within 12 nm from the coast. This zone was known as “customs
+                    waters” and was later called the “Contiguous Zone.” By 1930 the proprietary rights of the coastal
+                    state over the resources of the territorial sea was well established, provided it did not interfere
+                    with a vessel's right of innocent passage. In 1945, President Truman issued a proclamation asserting
+                    rights to explore and exploit the oil and gas resources of the continental shelf outside of the 3 nm
+                    territorial sea. In 1953, the U.S. Congress enacted legislation over the federal and state control
+                    of the continental shelf. In 1958, international conventions were concluded in Geneva on the
+                    territorial sea, contiguous zone and continental shelf. The concept of a fishery conservation zone
+                    was born in another Truman Proclamation but Congress did not enact laws regarding a 200 nm fishery
+                    conservation zone until 1976. This evolved into a zone whereby a coastal nation had exclusive
+                    control over all economic exploration and exploitation of the natural resources off its coast. By
+                    1982, the custom of asserting a 12 nm territorial sea, 24 nm contiguous zone, and 200 nm EEZ was
+                    codified in the United Nations Convention on the Law of the Sea (UNCLOS).</p>
+                <strong>U.S. CONTROL IN MARITIME ZONES VS RIGHTS OF FOREIGN STATES</strong>
+                <p>The U.S. proclaimed a 12 nm territorial sea in 1988, a 24 nm contiguous zone in 1999, and a 200 nm
+                    EEZ in 1983, consistent with customary international law as codified in UNCLOS. This customary law
+                    is a balanced compromise between a flag State's interest in maritime shipping and a coastal State's
+                    interest in protecting and managing its coastal waters. The U.S. sovereignty over its terrestrial
+                    lands extends to its internal waters and territorial sea, including the airspace above and the
+                    seabed below. Subject to ancient customs where nations should provide safe harbor to ships in danger
+                    or distress (force majure), the U.S. may restrict entry or travel through its internal waters. The
+                    U.S. may also prohibit the entry into portions of the territorial sea, provided there is still an
+                    area that allows for vessels to exercise their right of innocent passage through the territorial
+                    sea. “Passage” through the territorial sea must be continuous and expeditious, although that may
+                    include stopping and anchoring under certain circumstances. While warships are generally immune from
+                    laws and regulations, the U.S. has the right to require foreign warships comply with U.S. laws. If
+                    they don't, the U.S. may order the foreign warship to leave its territorial sea.</p>
+                <p>The contiguous zone is a buffer to the territorial sea, and within it, the U.S. may exercise the
+                    control necessary to prevent infringement of its customs, fiscal, immigration or sanitary laws and
+                    regulation of territorial sea. In addition, the U.S. may regulate the removal of cultural heritage,
+                    including foreign flagged vessels and nationals in its contiguous zone. It overlaps the EEZ which
+                    extends from the territorial sea out to 200 nm. The U.S. does not exercise sovereignty in the
+                    contiguous zone or the EEZ. It does have exclusive sovereign rights and jurisdicton for exploration
+                    and exploitation of natural resources of the seabed, subsoil, water column, and air space in the
+                    EEZ.</p>
+                <p>All of these zones have a common point of reference from which they are measured: the baseline. The
+                    rules for determining the baseline under UNCLOS are substantively the same as those under the 1958
+                    Convention, which the U.S. ratified in 1961. As a line that marks the inner limit of the territorial
+                    sea and the outer limit of internal waters, the baseline is comprised of the low water line on NOAA
+                    charts plus closing lines across legally-defined bays and rivers. The U.S. uses a normal baseline,
+                    as opposed to a straight baseline because of its interests in preserving the freedom of navigation.
+                    One of the most important facts for those relying on NOAA's charts for the limits of these zones is
+                    that the baseline and all of the zones are ambulatory. They are subject to change due to accretion
+                    and erosion of the shore.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row footer">
+    <div class="col-3 footer-options">
+        <img class="img-fluid" style="max-width:50px;margin-right:10px;" src="/images/noaa-logo-rgb-2022.png" >
+        <strong>Navigate with Confidence</strong>
+
+    </div>
+    <div class="col-6 footer-options ">
+        <p><a href="/about/about.html">About Us</a> | <a href="https://iocm.noaa.gov/">IOCM</a> | <a href="/hsrp/">HSRP</a> | <a href="/about/contact.html">Contact</a></p>
+        <p><a href="/about/privacy-policy.html">Privacy Policy</a> | <a href="http://www.noaa.gov/disclaimer">Disclaimer</a>
+            | <a href="http://www.cio.noaa.gov/services_programs/info_quality.html">Information Quality</a>
+             | <a href="http://www.noaa.gov/foia-freedom-of-information-act">Freedom of Information Act</a> | <a href="https://usa.gov">USA.gov</a>
+             | <a href="https://ready.gov">Ready.gov</a> | <a href="https://www.noaa.gov/inclusion-and-civil-rights">EEO</a>
+
+
+
+        <p style="text-align:center;font-size:12px;">Website owned by: <a href="/index.html">Office of Coast Survey</a><br />
+            <a href="https://oceanservice.noaa.gov">National Ocean Service</a> | <a href="https://www.noaa.gov">NOAA</a> | <a href="https://commerce.gov">Department of Commerce</a></p>
+    </div>
+
+
+
+    <div class="col-3 footer-options">
+        <p>Connect with Coast Survey</p>
+        <p class="section-title" style="font-size:18px;letter-spacing: 8px;">
+            <a href="/customer-service/assist/"><i class="bi bi-chat-text" data-toggle="tooltip" title="ASSIST Tool"></i></a>
+            <a href="https://www.linkedin.com/showcase/noaa-coast-survey/"><i class="bi bi-linkedin" data-togle="tooltip" title="LinkedIn"></i></a>
+            <a href="https://www.facebook.com/NOAAcharts/"><i class="bi bi-facebook" data-toggle="tooltip" title="Facebook"></i></a>
+            <a href="/updates/"><i class="bi bi-rss" data-toggle="tooltip" title="RSS Feed for Coast Survey Blog"></i></a>
+
+            <a href="https://public.govdelivery.com/accounts/USNOAANOS/subscriber/new?topic_id=USNOAANOS_204"><i class="bi bi-newspaper" data-toggle="tooltip" title="Sign up for Coast Survey Newsletter"></i></a>
+        </p>
+    </div>
+
+
+</div>
+
+
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+
+<script src="/bootstrap5/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<!-- jQuery - leaving government -->
+<script src="/js/exit.js" defer></script>
+<script src="/js/lapse.js"></script>
+
+<script src="https://touchpoints.app.cloud.gov/touchpoints/1756b653.js" async></script>
+<script async src="https://siteimproveanalytics.com/js/siteanalyze_6294131.js"></script>
+<script src="//dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOC&amp;subagency=NOAA" id="_fed_an_ua_tag"></script>
+
+</body>
+</newBody>
+
+</html>
+
+<script>
+    $(document).ready(function () {
+        if (location.hash !== null && location.hash !== "") {
+            //$(location.hash + ".collapse").collapse('show');
+            // document.getElementById(location.hash).collapse('show');
+            window.location.href = location.hash;
+            $(location.hash).collapse('show');
+
+
+        }
+    });
+</script>
