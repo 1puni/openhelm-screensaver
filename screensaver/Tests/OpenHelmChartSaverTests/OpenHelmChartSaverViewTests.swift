@@ -247,4 +247,92 @@ struct OpenHelmChartSaverViewTests {
             #expect(root.sublayers?.count ?? 0 == 0)
         }
     }
+
+    @Test func optionsSheetShowsBundledCreditsOnlyWhenPresent() throws {
+        try withResources(scene: scene(), pngData: pngData(), visibilityPNGData: pngData()) { sceneURL, directory in
+            let plain = try #require(OpenHelmChartSaverView(
+                frame: CGRect(x: 0, y: 0, width: 100, height: 100),
+                isPreview: true,
+                sceneURL: sceneURL,
+                resourceDirectory: directory
+            ))
+            #expect(!plain.hasConfigureSheet)
+            #expect(plain.configureSheet == nil)
+
+            let credits = "© OpenStreetMap contributors https://www.openstreetmap.org/copyright"
+            try credits.write(to: directory.appendingPathComponent("CREDITS.txt"), atomically: true, encoding: .utf8)
+            let credited = try #require(OpenHelmChartSaverView(
+                frame: CGRect(x: 0, y: 0, width: 100, height: 100),
+                isPreview: true,
+                sceneURL: sceneURL,
+                resourceDirectory: directory
+            ))
+            #expect(credited.hasConfigureSheet)
+            let sheet = try #require(credited.configureSheet)
+            #expect(credited.configureSheet === sheet)
+            let scroll = try #require(sheet.contentView?.subviews.compactMap { $0 as? NSScrollView }.first)
+            let text = try #require(scroll.documentView as? NSTextView)
+            #expect(text.string == credits)
+            #expect(!text.isEditable)
+            let link = text.textStorage?.attribute(.link, at: credits.count - 5, effectiveRange: nil)
+            #expect(link != nil)
+        }
+    }
+
+    private func sceneNamed(_ id: String, title: String) -> SaverScene {
+        let base = scene()
+        return SaverScene(id: id, title: title, chart: base.chart, light: base.light)
+    }
+
+    @Test func catalogPersistsTheChosenChartAndSwapsItsCredits() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("OpenHelmChartSaverCatalog-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: root) }
+        for (id, title) in [("tynningo", "Tynningö"), ("alcatraz", "Alcatraz")] {
+            let directory = root.appendingPathComponent("Scenes/\(id)")
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+            let scene = sceneNamed(id, title: title)
+            try JSONEncoder().encode(scene).write(to: directory.appendingPathComponent("scene.json"))
+            try pngData().write(to: directory.appendingPathComponent(scene.chart.asset))
+            try pngData().write(to: directory.appendingPathComponent(scene.chart.lightVisibilityAsset))
+            try "credits for \(title)".write(
+                to: directory.appendingPathComponent("CREDITS.txt"), atomically: true, encoding: .utf8
+            )
+        }
+        // A directory whose scene id disagrees with its name is ignored, not guessed at.
+        let stray = root.appendingPathComponent("Scenes/stray")
+        try FileManager.default.createDirectory(at: stray, withIntermediateDirectories: true)
+        try JSONEncoder().encode(sceneNamed("other", title: "Other")).write(to: stray.appendingPathComponent("scene.json"))
+
+        #expect(discoverSaverCatalog(in: root).map(\.id) == ["alcatraz", "tynningo"])
+
+        let suite = "OpenHelmChartSaverTests-\(UUID().uuidString)"
+        let settings = try #require(UserDefaults(suiteName: suite))
+        defer { settings.removePersistentDomain(forName: suite) }
+
+        let view = try #require(OpenHelmChartSaverView(
+            frame: CGRect(x: 0, y: 0, width: 100, height: 100),
+            isPreview: true, catalogDirectory: root, settings: settings
+        ))
+        #expect(view.selectedSceneID == "alcatraz")
+        #expect(view.hasConfigureSheet)
+        let sheet = try #require(view.configureSheet)
+        let picker = try #require(sheet.contentView?.subviews.compactMap { $0 as? NSPopUpButton }.first)
+        #expect(picker.itemTitles == ["Alcatraz", "Tynningö"])
+        let text = try #require(sheet.contentView?.subviews.compactMap { $0 as? NSScrollView }.first?.documentView as? NSTextView)
+        #expect(text.string == "credits for Alcatraz")
+
+        view.selectScene(id: "tynningo")
+        #expect(settings.string(forKey: "selectedSceneID") == "tynningo")
+        #expect(text.string == "credits for Tynningö")
+        let root0 = try requireRootLayer(view)
+        #expect(root0.sublayers?.count == 3)
+        #expect(root0.sublayers?[1].sublayers?.count == 2)  // beams rebuilt, not accumulated
+
+        let reopened = try #require(OpenHelmChartSaverView(
+            frame: CGRect(x: 0, y: 0, width: 100, height: 100),
+            isPreview: true, catalogDirectory: root, settings: settings
+        ))
+        #expect(reopened.selectedSceneID == "tynningo")
+    }
 }

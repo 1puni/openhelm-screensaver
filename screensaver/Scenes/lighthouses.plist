@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleDevelopmentRegion</key><string>en</string>
+  <key>CFBundleDisplayName</key><string>OpenHelm Lighthouses</string>
+  <key>CFBundleExecutable</key><string>OpenHelmChartSaver</string>
+  <key>CFBundleIdentifier</key><string>com.1puni.openhelm.lighthouses</string>
+  <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+  <key>CFBundleName</key><string>OpenHelmChartSaver</string>
+  <key>CFBundlePackageType</key><string>BNDL</string>
+  <key>CFBundleShortVersionString</key><string>3.0</string>
+  <key>CFBundleVersion</key><string>20260929</string>
+  <key>LSMinimumSystemVersion</key><string>14.0</string>
+  <key>NSHumanReadableCopyright</key><string>OpenHelm · MIT licence · chart data credited under Options…</string>
+  <key>NSPrincipalClass</key><string>OpenHelmChartSaverView</string>
+  <key>OpenHelmDefaultScene</key><string>tynningo-open-preview</string>
+</dict>
+</plist>

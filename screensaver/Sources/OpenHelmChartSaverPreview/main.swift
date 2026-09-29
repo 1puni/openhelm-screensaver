@@ -13,6 +13,8 @@ struct Options {
     var width = 1728
     var height = 1117
     var scale = 2
+    var frames = 1
+    var fps = 30.0
 }
 
 enum ParseError: Error {
@@ -27,7 +29,7 @@ func parseOptions(_ arguments: [String]) throws -> Options {
     while index < arguments.count {
         let flag = arguments[index]
         switch flag {
-        case "--scene", "--resources", "--snapshot", "--phase", "--width", "--height", "--scale":
+        case "--scene", "--resources", "--snapshot", "--phase", "--width", "--height", "--scale", "--frames", "--fps":
             guard index + 1 < arguments.count else { throw ParseError.missingValue(flag) }
         default:
             throw ParseError.unknown(flag)
@@ -55,6 +57,12 @@ func parseOptions(_ arguments: [String]) throws -> Options {
         case "--scale":
             guard let parsed = Int(value), parsed > 0 else { throw ParseError.invalid(flag) }
             options.scale = parsed
+        case "--frames":
+            guard let parsed = Int(value), parsed > 0 else { throw ParseError.invalid(flag) }
+            options.frames = parsed
+        case "--fps":
+            guard let parsed = Double(value), parsed.isFinite, parsed > 0 else { throw ParseError.invalid(flag) }
+            options.fps = parsed
         default:
             preconditionFailure("validated flag was not handled")
         }
@@ -107,7 +115,15 @@ guard let saver = OpenHelmChartSaverView(
 }
 saver.layoutSubtreeIfNeeded()
 
-if let snapshot = options.snapshot {
+if let snapshot = options.snapshot, options.frames > 1 {
+    // Frame sequence for clips: SNAPSHOT-0000.png, SNAPSHOT-0001.png, … at --fps from --phase.
+    let stem = snapshot.deletingPathExtension().path
+    for frame in 0..<options.frames {
+        saver.renderPreviewFrame(at: options.phase + Double(frame) / options.fps)
+        let url = URL(fileURLWithPath: stem + String(format: "-%04d.png", frame))
+        try writeSnapshot(view: saver, to: url, scale: options.scale)
+    }
+} else if let snapshot = options.snapshot {
     saver.renderPreviewFrame(at: options.phase)
     try writeSnapshot(view: saver, to: snapshot, scale: options.scale)
 } else {

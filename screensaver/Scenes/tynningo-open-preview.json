@@ -1,0 +1,83 @@
+{
+  "id": "tynningo-open-preview",
+  "title": "Tynningö — Stockholm archipelago",
+  "chart": {
+    "center": [
+      18.3891389,
+      59.3714444
+    ],
+    "zoom": 13.35,
+    "logicalWidth": 1728,
+    "logicalHeight": 1117,
+    "deviceScaleFactor": 2,
+    "asset": "tynningo-open-preview@2x.png",
+    "lightVisibilityAsset": "tynningo-open-preview-light-visibility@2x.png"
+  },
+  "light": {
+    "name": "Tynningö",
+    "coordinate": [
+      18.3891389,
+      59.3714444
+    ],
+    "character": "Fl(2) WRG 6s",
+    "periodSeconds": 6.0,
+    "pulses": [
+      {
+        "start": 0.0,
+        "end": 0.48
+      },
+      {
+        "start": 0.96,
+        "end": 1.44
+      }
+    ],
+    "anchor": {
+      "x": 0.5,
+      "y": 0.5
+    },
+    "sectors": [
+      {
+        "startBearing": 114.0,
+        "endBearing": 126.0,
+        "colour": "green",
+        "rangeNauticalMiles": 3.0
+      },
+      {
+        "startBearing": 126.0,
+        "endBearing": 131.4,
+        "colour": "white",
+        "rangeNauticalMiles": 6.0
+      },
+      {
+        "startBearing": 131.4,
+        "endBearing": 163.0,
+        "colour": "red",
+        "rangeNauticalMiles": 4.0
+      },
+      {
+        "startBearing": 163.0,
+        "endBearing": 254.0,
+        "colour": "white",
+        "rangeNauticalMiles": 6.0
+      },
+      {
+        "startBearing": 254.0,
+        "endBearing": 279.5,
+        "colour": "green",
+        "rangeNauticalMiles": 3.0
+      },
+      {
+        "startBearing": 279.5,
+        "endBearing": 280.8,
+        "colour": "white",
+        "rangeNauticalMiles": 6.0
+      },
+      {
+        "startBearing": 280.8,
+        "endBearing": 300.0,
+        "colour": "red",
+        "rangeNauticalMiles": 4.0
+      }
+    ]
+  }
+}

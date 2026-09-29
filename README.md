@@ -1,56 +1,55 @@
-# OpenHelm Alcatraz Preview
+# OpenHelm Lighthouses
 
-An offline native Mac screen saver: NOAA's San Francisco Bay geography, a
-monochrome chart, and a rotating white sweep from Alcatraz Light.
+An offline native Mac screen saver: a quiet nautical chart and a lighthouse sweeping its real
+sectors, stopping at the first land it meets. Two charts, chosen under **Options…** in
+System Settings → Screen Saver, where each chart's data credits are also shown:
 
-**Apple Silicon · macOS 14 or newer.** The minimum OS comes from the build target;
-not every supported macOS version has been tested. This decorative preview is
-not for navigation and is not an official NOAA product.
+- **Tynningö — Stockholm archipelago** (default): Fl(2) WRG 6s over Oxdjupet, built only from
+  open data — OpenStreetMap (ODbL), EMODnet Bathymetry (CC BY 4.0) and NGA's List of Lights
+  (public domain). See [its provenance](screensaver/Provenance/tynningo-open/README.md).
+- **Alcatraz — San Francisco Bay**: Fl W 5s from NOAA Electronic Navigational Charts under
+  [NOAA's agreement](screensaver/Provenance/noaa/ENC_Agreement.html). See
+  [its provenance](screensaver/Scenes/alcatraz-noaa-preview.md).
 
-The original renderer is MIT-licensed OpenHelm code. This standalone source has
-no private repository history, Swedish chart resources, app data, downloaded
-sprites or dependency on the full OpenHelm application. NOAA data retains its
-own terms: read [the source and data provenance](screensaver/Scenes/alcatraz-noaa-preview.md)
-and [NOAA's agreement](screensaver/Provenance/noaa/ENC_Agreement.html).
+**macOS 14 or newer, Apple Silicon and Intel.** Decorative light studies, **not for
+navigation**; neither chart is an official product of any hydrographic office. The chart
+plates carry no text; credits travel beside them, in the saver and in the release zip.
 
 ## Build locally
 
-Apple Command Line Tools (Swift 6+) and Node.js are enough to build from the
-included PNGs. Recreating those PNGs also requires Python with Pillow 12.2.0,
-GDAL 3.13.3 (`ogr2ogr`) and macOS Arial. No credentials or online service is used.
+Apple Command Line Tools (Swift 6+) and Node.js build everything from the included PNGs:
 
 ```sh
 make test
-make build
-make visual-check
+make build        # → screensaver/build/lighthouses-release/OpenHelm-Lighthouses-macOS.zip
 make preview
 ```
 
-The zip appears at
-`screensaver/build/OpenHelm-Alcatraz-Preview-macOS-arm64.zip`.
-`make assets` regenerates the plate and visibility mask from the pinned NOAA
-archives. Chart and mask hashes repeat with the recorded tools.
+`make build` compiles a universal saver carrying both scenes, loads the built bundle through
+its principal class the way the screen saver host does, renders a preview clip per chart,
+zips it with README, credits and licences, then re-verifies the unzipped bundle. It never
+installs anything. `make alcatraz` still builds the original single-scene Alcatraz preview.
+
+`make assets` regenerates all chart plates and visibility masks from the pinned sources.
+That additionally needs Python with Pillow 12.2.0, GDAL 3.13.3 (`ogr2ogr`, `gdalwarp`,
+`gdal_contour`), [uv](https://docs.astral.sh/uv/) (for shapely) and macOS Arial. Both
+builds refuse inputs that differ from their recorded hashes; the plates repeat byte for byte.
 
 ## Download status
 
-This binary is **ad-hoc signed, not Developer ID signed or notarized**. A Mac may
-block downloaded software from an unidentified developer. The local bundle-load
-check does not reproduce Gatekeeper's downloaded-file path, and installation in
-the macOS screen saver host has not been tested. No command here disables
-Gatekeeper or removes quarantine. See [Apple's explanation](https://support.apple.com/en-gb/102445).
-
-The native preview can be built and inspected locally. A signed, notarized build
-and a normal screen saver installation check are still needed for a frictionless
-public binary release. No installer runs as part of any command above.
+The release binary is **ad-hoc signed, not Developer ID signed or notarised**, so macOS
+may say it cannot verify the developer. After a first double-click, use **System Settings →
+Privacy & Security → Open Anyway**, then double-click the saver again. See
+[Apple's explanation](https://support.apple.com/en-gb/102445). No command here disables
+Gatekeeper or removes quarantine.
 
 ## Source scope
 
-Extracted from the original OpenHelm source at
-`59600977bfba0d89599452fc671279d8ae729e4e`, with the NOAA preview change on
-`handoff/noaa-alcatraz-screensaver-preview`. Renderer/core source is preserved;
-the preview's default scene, build entry points and test fixtures are adapted
-for this standalone export. Geometry in Swift tests is explicitly synthetic.
+A standalone export of the screen saver from the original OpenHelm source (private history
+not included). Renderer/core source is preserved; the preview's default scene, build entry
+points and test fixtures are adapted for this export, and geometry in Swift tests is
+explicitly synthetic. `SOURCE_MANIFEST.json` lists every file with its SHA-256.
 
-Original code: [MIT](LICENSE), copyright 2026 OpenHelm contributors, with
-existing authorship retained. This licence does not relicense NOAA data or
-system fonts; fonts are used locally for rendering and are not distributed.
+Original code: [MIT](LICENSE), copyright 2026 OpenHelm contributors, with existing
+authorship retained. This licence does not relicense chart data (each source keeps its own
+terms above) or system fonts, which are used locally for rendering and not distributed.

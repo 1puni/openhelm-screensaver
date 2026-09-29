@@ -4,7 +4,7 @@ RESOURCES := $(CURDIR)/screensaver/Resources
 BIN = $(shell swift build --disable-sandbox --package-path screensaver --show-bin-path)
 export SWIFTPM_MODULECACHE_OVERRIDE := $(CURDIR)/screensaver/.build/module-cache
 export CLANG_MODULE_CACHE_PATH := $(CURDIR)/screensaver/.build/clang-cache
-.PHONY: test assets build visual-check preview
+.PHONY: test assets build alcatraz visual-check preview
 
 test:
 	node --test tests/scene.test.mjs
@@ -12,8 +12,14 @@ test:
 
 assets:
 	python3 screensaver/scripts/build-noaa-scene.py
+	python3 screensaver/scripts/build-tynningo-scene.py
 
+# OpenHelm Lighthouses: one universal saver, Tynningö + Alcatraz, chosen under Options….
 build:
+	screensaver/scripts/package-lighthouses.sh
+
+# The original single-scene Alcatraz preview zip.
+alcatraz:
 	screensaver/scripts/package-noaa-preview.sh
 
 preview:

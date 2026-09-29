@@ -47,6 +47,27 @@ func loadSaverResources(sceneURL: URL, assetDirectory: URL) throws -> LoadedSave
     )
 }
 
+/// One chart in a multi-scene bundle: `Resources/Scenes/<id>/scene.json` plus its assets and an
+/// optional CREDITS.txt, all in that directory.
+public struct SaverCatalogEntry: Equatable, Sendable {
+    public let id: String
+    public let title: String
+    public let directory: URL
+}
+
+public func discoverSaverCatalog(in root: URL) -> [SaverCatalogEntry] {
+    let scenes = root.appendingPathComponent("Scenes")
+    guard let children = try? FileManager.default.contentsOfDirectory(
+        at: scenes, includingPropertiesForKeys: nil
+    ) else { return [] }
+    return children.compactMap { directory in
+        guard let data = try? Data(contentsOf: directory.appendingPathComponent("scene.json")),
+              let scene = try? SaverScene.decode(data),
+              scene.id == directory.lastPathComponent else { return nil }
+        return SaverCatalogEntry(id: scene.id, title: scene.title, directory: directory)
+    }.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
+}
+
 @MainActor
 @objc(OpenHelmChartSaverView)
 public final class OpenHelmChartSaverView: ScreenSaverView {
@@ -67,11 +88,31 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
     private var lastUptime = 0.0
     private var sceneURL: URL?
     private var resourceDirectory: URL?
+    private var catalog: [SaverCatalogEntry] = []
+    private var settings: UserDefaults?
+    private var activeDirectory: URL?
+    static let selectedSceneKey = "selectedSceneID"
 
     public override init?(frame: NSRect, isPreview: Bool) {
         sceneURL = nil
         resourceDirectory = nil
         super.init(frame: frame, isPreview: isPreview)
+        let bundle = Bundle(for: OpenHelmChartSaverView.self)
+        catalog = bundle.resourceURL.map(discoverSaverCatalog) ?? []
+        settings = ScreenSaverDefaults(forModuleWithName: bundle.bundleIdentifier ?? "com.openhelm.ChartSaver")
+        if let fallback = bundle.object(forInfoDictionaryKey: "OpenHelmDefaultScene") as? String {
+            settings?.register(defaults: [Self.selectedSceneKey: fallback])
+        }
+        configure()
+    }
+
+    /// A multi-scene catalog (`<catalogDirectory>/Scenes/<id>/…`) with an explicit settings store.
+    public init?(frame: NSRect, isPreview: Bool, catalogDirectory: URL, settings: UserDefaults) {
+        sceneURL = nil
+        resourceDirectory = nil
+        super.init(frame: frame, isPreview: isPreview)
+        catalog = discoverSaverCatalog(in: catalogDirectory)
+        self.settings = settings
         configure()
     }
 
@@ -95,16 +136,124 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
     }
 
     public override var isOpaque: Bool { true }
-    public override var hasConfigureSheet: Bool { false }
+
+    /// Data attribution lives beside the chart, not on it: System Settings' "Options…" shows the
+    /// active scene's CREDITS.txt, plus a chart picker when the bundle carries several scenes.
+    private var creditsText: String? {
+        guard let url = activeDirectory?.appendingPathComponent("CREDITS.txt") else { return nil }
+        return try? String(contentsOf: url, encoding: .utf8)
+    }
+    private var creditsWindow: NSWindow?
+    private var creditsTextView: NSTextView?
+
+    public var selectedSceneID: String? { selectedEntry?.id }
+
+    private var selectedEntry: SaverCatalogEntry? {
+        let saved = settings?.string(forKey: Self.selectedSceneKey)
+        return catalog.first { $0.id == saved } ?? catalog.first
+    }
+
+    public override var hasConfigureSheet: Bool { catalog.count > 1 || creditsText != nil }
+
+    public override var configureSheet: NSWindow? {
+        guard hasConfigureSheet else { return nil }
+        if let creditsWindow { return creditsWindow }
+
+        let window = NSWindow(
+            contentRect: NSRect(x: 0, y: 0, width: 520, height: 460),
+            styleMask: [.titled],
+            backing: .buffered,
+            defer: true
+        )
+        window.title = Bundle(for: OpenHelmChartSaverView.self)
+            .object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "OpenHelm Chart Saver"
+        let content = window.contentView!
+
+        if catalog.count > 1 {
+            let label = NSTextField(labelWithString: "Chart:")
+            label.frame = NSRect(x: 20, y: 418, width: 50, height: 22)
+            let picker = NSPopUpButton(frame: NSRect(x: 72, y: 414, width: 428, height: 28))
+            picker.addItems(withTitles: catalog.map(\.title))
+            if let selected = selectedEntry, let index = catalog.firstIndex(of: selected) {
+                picker.selectItem(at: index)
+            }
+            picker.target = self
+            picker.action = #selector(pickScene(_:))
+            content.addSubview(label)
+            content.addSubview(picker)
+        }
+
+        let scroll = NSTextView.scrollableTextView()
+        scroll.frame = NSRect(x: 20, y: 60, width: 480, height: catalog.count > 1 ? 340 : 380)
+        scroll.borderType = .bezelBorder
+        creditsTextView = scroll.documentView as? NSTextView
+        creditsTextView?.textContainerInset = NSSize(width: 8, height: 8)
+        showCredits()
+
+        let done = NSButton(title: "Done", target: self, action: #selector(closeCredits))
+        done.keyEquivalent = "\r"
+        done.frame = NSRect(x: 420, y: 16, width: 80, height: 32)
+
+        content.addSubview(scroll)
+        content.addSubview(done)
+        creditsWindow = window
+        return window
+    }
+
+    private func showCredits() {
+        guard let text = creditsTextView else { return }
+        let credits = creditsText ?? ""
+        text.isEditable = true
+        text.textStorage?.setAttributedString(NSAttributedString(
+            string: credits,
+            attributes: [.font: NSFont.systemFont(ofSize: NSFont.smallSystemFontSize),
+                         .foregroundColor: NSColor.textColor]
+        ))
+        // Link detection only runs on editable text; turn source URLs into links, then lock.
+        text.isAutomaticLinkDetectionEnabled = true
+        text.checkTextInDocument(nil)
+        text.isEditable = false
+    }
+
+    @objc private func pickScene(_ sender: NSPopUpButton) {
+        guard catalog.indices.contains(sender.indexOfSelectedItem) else { return }
+        selectScene(id: catalog[sender.indexOfSelectedItem].id)
+    }
+
+    /// Persist the choice and rebuild the layer tree from the newly selected scene.
+    public func selectScene(id: String) {
+        guard catalog.contains(where: { $0.id == id }) else { return }
+        settings?.set(id, forKey: Self.selectedSceneKey)
+        settings?.synchronize()
+        for beam in beamLayers { beam.removeFromSuperlayer() }
+        beamLayers = []
+        scene = nil
+        chartImage = nil
+        sweep = nil
+        configure()
+        showCredits()
+    }
+
+    @objc private func closeCredits() {
+        guard let creditsWindow else { return }
+        if let parent = creditsWindow.sheetParent {
+            parent.endSheet(creditsWindow)
+        } else {
+            creditsWindow.close()
+        }
+    }
 
     private func configure() {
         prepareBlackLayerTree()
         do {
             let bundleDirectory = Bundle(for: OpenHelmChartSaverView.self).resourceURL
-            guard let assetDirectory = resourceDirectory ?? bundleDirectory else {
+            guard let assetDirectory = selectedEntry?.directory ?? resourceDirectory ?? bundleDirectory else {
                 throw SaverResourceError.missing("bundle resource directory")
             }
-            let resolvedSceneURL = sceneURL ?? assetDirectory.appendingPathComponent("scene.json")
+            activeDirectory = assetDirectory
+            let resolvedSceneURL = selectedEntry == nil
+                ? (sceneURL ?? assetDirectory.appendingPathComponent("scene.json"))
+                : assetDirectory.appendingPathComponent("scene.json")
             let loaded = try loadSaverResources(
                 sceneURL: resolvedSceneURL,
                 assetDirectory: assetDirectory

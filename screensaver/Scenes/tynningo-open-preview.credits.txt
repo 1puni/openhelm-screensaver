@@ -1,0 +1,33 @@
+Tynningö — Oxdjupet · OpenHelm open-data light study
+
+A decorative chart and light study. NOT FOR NAVIGATION. The chart is an original,
+simplified portrayal built only from openly licensed data; it omits features and is not an
+official chart product of any hydrographic office.
+
+DATA
+
+Coastline, place names and navigation marks
+  © OpenStreetMap contributors. Data available under the Open Database License (ODbL 1.0).
+  https://www.openstreetmap.org/copyright
+
+Depth contours and shallow-water stipple
+  EMODnet Bathymetry Consortium, EMODnet Digital Bathymetry (DTM), mean depth.
+  Licensed under CC BY 4.0. https://emodnet.ec.europa.eu/en/bathymetry
+  Resampled and contoured at 6, 10, 20, 30 and 50 m; ~115 m source grid, generalised.
+
+Tynningö light and neighbouring light sectors
+  National Geospatial-Intelligence Agency, Pub. 116 List of Lights, Radio Aids and Fog
+  Signals — Baltic Sea (US Government work, public domain). Tynningö: C6570.
+  https://msi.nga.mil
+  NGA does not endorse this work.
+
+THE LIGHT
+
+Tynningö, Oxdjupet channel: Fl(2) WRG 6s, 5 m, nominal range W 6 / R 4 / G 3 M.
+The rotating white sweep is an artistic interpretation of the light's period and sectors,
+clipped at the first charted land. It does not reproduce the physical optic, brightness
+or flash durations.
+
+SOFTWARE
+
+OpenHelm Chart Saver — MIT licence. https://github.com/helmahoy/openhelm

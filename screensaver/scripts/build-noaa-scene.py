@@ -78,7 +78,7 @@ light = next(f for f in features['LIGHTS'] if f['sourceCell'] == 'US5OAKFG' and 
 assert light['properties']['SIGSEQ'] == '00.5+(04.5)'
 assert light['properties']['COLOUR'] == ['1'] and light['properties']['VALNMR'] == 20
 anchor = project(light['geometry']['coordinates'])
-scene = dict(id='alcatraz-noaa-preview', title='Alcatraz — San Francisco Bay · NOAA data preview', chart=dict(
+scene = dict(id='alcatraz-noaa-preview', title='Alcatraz — San Francisco Bay', chart=dict(
     center=CENTER, zoom=ZOOM, logicalWidth=1728, logicalHeight=1117, deviceScaleFactor=SCALE,
     asset='alcatraz-noaa-preview@2x.png', lightVisibilityAsset='alcatraz-noaa-preview-light-visibility@2x.png'), light=dict(
     name='Alcatraz Light', coordinate=light['geometry']['coordinates'], character='Fl W 5s', periodSeconds=5,
@@ -177,12 +177,7 @@ for layer in ('LNDARE', 'SEAARE'):
             draw.text(p, name.upper(), font=label_font, fill='#c7c8c5', anchor='mm', stroke_width=2, stroke_fill='#161b1e')
             seen_names.add(name)
 
-title_font = ImageFont.truetype(FONT, 42)
-small_font = ImageFont.truetype(FONT, 22)
-draw.rounded_rectangle((60, SIZE[1]-215, 1250, SIZE[1]-55), radius=8, fill='#0d1216', outline='#39424a', width=2)
-draw.text((90,SIZE[1]-195), 'ALCATRAZ / SAN FRANCISCO BAY', font=title_font, fill='#e1e3df')
-draw.text((90,SIZE[1]-133), 'Fl W 5s · 20 M  /  native light study', font=small_font, fill='#a6b2b9')
-draw.text((90,SIZE[1]-93), 'NOAA ENC data · 24 SEP 2026 · decorative preview — not for navigation', font=small_font, fill='#8e9ca6')
+# Title and data credits ship beside the chart (Options… sheet, README), not on the plate.
 image.save(SAVER / 'Resources' / scene['chart']['asset'])
 
 # Use the existing renderer's exact first-land occlusion algorithm and clearance.

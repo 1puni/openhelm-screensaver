@@ -1,0 +1,29 @@
+Alcatraz — San Francisco Bay · OpenHelm light study
+
+A decorative chart and light study. NOT FOR NAVIGATION. The chart is an original,
+simplified portrayal; it omits features and is not an official NOAA product. NOAA's logos
+are not used and NOAA does not endorse this work.
+
+DATA
+
+Office of Coast Survey. (2001). NOAA Electronic Navigational Charts (ENC) [Dataset].
+National Oceanic and Atmospheric Administration. Accessed 2026-09-24.
+https://doi.org/10.25923/jyyk-j845
+Cells US5OAKEF, US5OAKEG, US5OAKEH, US5OAKFF, US5OAKFG and US5OAKFH: coastlines, land,
+depth contours, soundings, bridges and navigation marks. Depths in metres.
+
+Use of this data-derived work is subject to the NOAA ENC User Agreement, included with this
+screen saver as NOAA-ENC-USER-AGREEMENT.html:
+https://charts.noaa.gov/ENCs/ENC_Agreement.shtml
+Data licensing: https://nauticalcharts.noaa.gov/data/data-licensing.html
+
+THE LIGHT
+
+Alcatraz Light: Fl W 5s, nominal range 20 M (US5OAKFG LIGHTS, LNAM 0226014E0B1B0032;
+USCG Light List vol. VI no. 4315). NOAA gives no sector limits; the sweep uses a full white
+circle clipped at the first charted land. It is an artistic interpretation of the light's
+period, not its physical optic, brightness or flash.
+
+SOFTWARE
+
+OpenHelm Chart Saver — MIT licence. https://github.com/helmahoy/openhelm
