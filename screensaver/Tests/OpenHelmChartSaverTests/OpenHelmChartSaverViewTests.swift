@@ -171,7 +171,8 @@ struct OpenHelmChartSaverViewTests {
                 #expect(mark.name == "chart-inscription")
                 #expect(abs(mark.position.x / chart.bounds.width - 0.49) < 0.0001)
                 #expect(abs(mark.position.y / chart.bounds.height - 0.755) < 0.0001)
-                #expect(mark.sublayers?.count == 2)
+                #expect(mark.sublayers?.count == 1)
+                #expect(mark.sublayers?.first?.contents != nil)
                 let position = mark.position
                 let transform = mark.transform
                 view.renderPreviewFrame(at: 1.5)

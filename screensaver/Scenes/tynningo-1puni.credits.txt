@@ -37,3 +37,6 @@ ART DIRECTION
 1puni.com and the original horizontal unicorn wordmark, placed along the island as a decorative
 inscription. Brand artwork © 1puni; used at the owner’s request. It is not map data.
 Source: https://1puni.com/assets/logo-horizontal.png (2026-09-30).
+
+Version 1.2: the domain lettering is an imagegen extension of the original
+wordmark, commissioned by the owner to match .com to the existing letterforms.

@@ -71,10 +71,9 @@ for id in ids {
     let inscription = layers[0].sublayers?.first { $0.name == "chart-inscription" }
     guard hasInscription == (inscription != nil) else { fail("\(id): inscription did not load") }
     if let inscription {
-        guard inscription.sublayers?.first?.contents != nil,
-              let label = inscription.sublayers?.last as? CATextLayer,
-              let text = label.string as? NSAttributedString, !text.string.isEmpty else {
-            fail("\(id): logo or inscription text missing")
+        guard inscription.sublayers?.count == 1,
+              inscription.sublayers?.first?.contents != nil else {
+            fail("\(id): complete domain artwork missing")
         }
     }
     let sceneCredits = view.configureSheet?.contentView?.subviews

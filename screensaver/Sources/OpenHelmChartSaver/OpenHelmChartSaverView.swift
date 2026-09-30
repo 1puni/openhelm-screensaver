@@ -415,7 +415,6 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
     /// island at every display size. The original logo remains unchanged on disk.
     private struct ChartInscription: Decodable {
         let image: String
-        let text: String
         let centerX: Double
         let centerY: Double
         let width: Double
@@ -452,9 +451,8 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
             }
             let group = CALayer()
             group.name = "chart-inscription"
-            // The whole supplied wordmark is artwork: never re-typeset its distinctive
-            // 1p letterforms. Only the small URL suffix is live text.
-            let artworkWidth = spec.width * 0.84
+            // The entire address is one artwork, including .com. No substitute font.
+            let artworkWidth = spec.width
             let artworkHeight = artworkWidth * input.extent.height / input.extent.width
             group.bounds = CGRect(x: 0, y: 0, width: spec.width, height: artworkHeight)
             group.opacity = 0.72
@@ -462,17 +460,7 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
             emblem.contents = logo
             emblem.frame = CGRect(x: 0, y: 0, width: artworkWidth, height: artworkHeight)
             emblem.minificationFilter = .trilinear
-            let label = CATextLayer()
-            label.string = NSAttributedString(string: spec.text, attributes: [
-                .font: NSFont.systemFont(ofSize: spec.width * 0.060, weight: .semibold),
-                .foregroundColor: NSColor(calibratedRed: 0.70, green: 0.72, blue: 0.70, alpha: 1),
-                .kern: -0.8,
-            ])
-            label.frame = CGRect(x: artworkWidth, y: artworkHeight * 0.28,
-                                 width: spec.width - artworkWidth, height: spec.width * 0.09)
-            label.contentsScale = 2
             group.addSublayer(emblem)
-            group.addSublayer(label)
             group.shadowColor = NSColor.black.cgColor
             group.shadowOpacity = 0.35
             group.shadowRadius = 1
