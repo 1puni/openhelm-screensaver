@@ -41,6 +41,4 @@ brand:
 	swift screensaver/scripts/verify-bundle-load.swift '$(CURDIR)/screensaver/build/1puni-Tynningo.saver' '$(CURDIR)/screensaver/.visual-check/brand'
 
 install-brand: brand
-	mkdir -p '$(HOME)/Library/Screen Savers'
-	ditto screensaver/build/1puni-Tynningo.saver '$(HOME)/Library/Screen Savers/1puni-Tynningo.saver'
-	codesign --verify --deep --strict '$(HOME)/Library/Screen Savers/1puni-Tynningo.saver'
+	screensaver/scripts/install-brand.sh

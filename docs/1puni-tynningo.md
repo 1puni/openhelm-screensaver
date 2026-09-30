@@ -3,9 +3,10 @@
 An additional, offline native screen saver commissioned by Evita on 2026-09-30:
 put 1puni.com and its logo into Tynningö as though they belong to the island.
 
-The original unicorn emblem and a Georgia Bold domain inscription follow the
-island's northwest–southeast axis. Muted brass-grey ink (#ada68c), a fine recessed
-shadow, charcoal land and near-black water keep the composition quiet. The
+The complete original horizontal 1puni logo, including its distinctive 1p
+letterforms, follows the island’s northwest–southeast axis. A small `.com` suffix
+completes the address. Cool grey ink (#b3b8b3), a restrained recessed shadow,
+charcoal land and near-black water keep the composition quiet. The
 inscription is attached to the chart coordinate system, never the screen edge.
 The real coastline, chart plate, lighthouse timing and land-occlusion mask are
 unchanged. The logo is the original asset from 1puni.com, rendered as an ink mask
@@ -29,12 +30,19 @@ The installation is user-scoped at
 `~/Library/Screen Savers/1puni-Tynningo.saver`.
 Choose **1puni — Tynningö** in System Settings → Screen Saver.
 
-`inscription.json` and the original emblem travel in the scene's `.include/`
+`inscription.json` and the original horizontal wordmark travel in the scene's `.include/`
 directory. The optional sidecar declares chart-relative centre, width in logical
 chart points and rotation. Other scenes do not acquire the inscription.
 
 The bundle is ad-hoc signed, like the original local saver. This build does not
 publish a website change or a GitHub binary release.
+
+## Brand fidelity
+
+V rejected the initial Georgia interpretation on September 30. The 1puni
+lettering is now the original `logo-horizontal.png` from 1puni.com, with its
+proportions preserved. No replacement font renders the brand name. Version 1.1
+supersedes the rejected first design.
 
 ## Verification
 

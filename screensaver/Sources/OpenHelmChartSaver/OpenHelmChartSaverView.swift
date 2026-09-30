@@ -445,31 +445,36 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
                 "inputGVector": CIVector(x: 0, y: 0, z: 0, w: 0),
                 "inputBVector": CIVector(x: 0, y: 0, z: 0, w: 0),
                 "inputAVector": CIVector(x: -0.2126, y: -0.7152, z: -0.0722, w: 0),
-                "inputBiasVector": CIVector(x: 0.68, y: 0.65, z: 0.55, w: 1),
+                "inputBiasVector": CIVector(x: 0.70, y: 0.72, z: 0.70, w: 1),
             ])
             guard let logo = CIContext().createCGImage(mask, from: input.extent) else {
                 throw SaverResourceError.invalidImage(spec.image)
             }
             let group = CALayer()
             group.name = "chart-inscription"
-            group.bounds = CGRect(x: 0, y: 0, width: spec.width, height: 136)
-            group.opacity = 0.82
+            // The whole supplied wordmark is artwork: never re-typeset its distinctive
+            // 1p letterforms. Only the small URL suffix is live text.
+            let artworkWidth = spec.width * 0.84
+            let artworkHeight = artworkWidth * input.extent.height / input.extent.width
+            group.bounds = CGRect(x: 0, y: 0, width: spec.width, height: artworkHeight)
+            group.opacity = 0.72
             let emblem = CALayer()
             emblem.contents = logo
-            emblem.frame = CGRect(x: 0, y: 8, width: 113, height: 120)
+            emblem.frame = CGRect(x: 0, y: 0, width: artworkWidth, height: artworkHeight)
             emblem.minificationFilter = .trilinear
             let label = CATextLayer()
             label.string = NSAttributedString(string: spec.text, attributes: [
-                .font: NSFont(name: "Georgia-Bold", size: 53) ?? NSFont.boldSystemFont(ofSize: 53),
-                .foregroundColor: NSColor(calibratedRed: 0.68, green: 0.65, blue: 0.55, alpha: 1),
-                .kern: -1.4,
+                .font: NSFont.systemFont(ofSize: spec.width * 0.060, weight: .semibold),
+                .foregroundColor: NSColor(calibratedRed: 0.70, green: 0.72, blue: 0.70, alpha: 1),
+                .kern: -0.8,
             ])
-            label.frame = CGRect(x: 132, y: 32, width: spec.width - 132, height: 66)
+            label.frame = CGRect(x: artworkWidth, y: artworkHeight * 0.28,
+                                 width: spec.width - artworkWidth, height: spec.width * 0.09)
             label.contentsScale = 2
             group.addSublayer(emblem)
             group.addSublayer(label)
             group.shadowColor = NSColor.black.cgColor
-            group.shadowOpacity = 0.65
+            group.shadowOpacity = 0.35
             group.shadowRadius = 1
             group.shadowOffset = CGSize(width: 0, height: -1.5)
             chartLayer.addSublayer(group)

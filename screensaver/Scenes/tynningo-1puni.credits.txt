@@ -34,6 +34,6 @@ OpenHelm Chart Saver — MIT licence. https://github.com/helmahoy/openhelm
 
 ART DIRECTION
 
-1puni.com and the original unicorn emblem, placed along the island as a decorative
+1puni.com and the original horizontal unicorn wordmark, placed along the island as a decorative
 inscription. Brand artwork © 1puni; used at the owner’s request. It is not map data.
-Source: https://1puni.com/assets/logo-emblem.png (2026-09-30).
+Source: https://1puni.com/assets/logo-horizontal.png (2026-09-30).
