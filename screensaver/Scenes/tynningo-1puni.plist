@@ -7,10 +7,10 @@
   <key>CFBundleExecutable</key><string>OpenHelmChartSaver</string>
   <key>CFBundleIdentifier</key><string>com.1puni.tynningo</string>
   <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
-  <key>CFBundleName</key><string>OpenHelmChartSaver</string>
+  <key>CFBundleName</key><string>1puni — Tynningö</string>
   <key>CFBundlePackageType</key><string>BNDL</string>
   <key>CFBundleShortVersionString</key><string>1.2</string>
-  <key>CFBundleVersion</key><string>2026093003</string>
+  <key>CFBundleVersion</key><string>2026093004</string>
   <key>LSMinimumSystemVersion</key><string>14.0</string>
   <key>NSHumanReadableCopyright</key><string>OpenHelm · MIT licence · chart data credited under Options…</string>
   <key>NSPrincipalClass</key><string>OnePuniTynningoSaverView</string>
