@@ -33,3 +33,14 @@ visual-check:
 	'$(BIN)/OpenHelmChartSaverPreview' --scene '$(SCENE)' --resources '$(RESOURCES)' --snapshot '$(CURDIR)/screensaver/.visual-check/active-a.png' --phase 1.5 --width 1728 --height 1117 --scale 2
 	'$(BIN)/OpenHelmChartSaverPreview' --scene '$(SCENE)' --resources '$(RESOURCES)' --snapshot '$(CURDIR)/screensaver/.visual-check/active-b.png' --phase 2.75 --width 1728 --height 1117 --scale 2
 	swift screensaver/scripts/verify-frame-diff.swift screensaver/.visual-check/inactive.png screensaver/.visual-check/active-a.png screensaver/.visual-check/active-b.png '$(RESOURCES)/alcatraz-noaa-preview-light-visibility@2x.png' 2284 1228
+
+# A separate branded Tynningö edition; leaves OpenHelm Lighthouses untouched.
+.PHONY: brand install-brand
+brand:
+	screensaver/scripts/build-collection.sh screensaver/Scenes/tynningo-1puni.plist screensaver/build/1puni-Tynningo.saver screensaver/Scenes/tynningo-1puni.json screensaver/Scenes/tynningo-open-preview.json
+	swift screensaver/scripts/verify-bundle-load.swift '$(CURDIR)/screensaver/build/1puni-Tynningo.saver' '$(CURDIR)/screensaver/.visual-check/brand'
+
+install-brand: brand
+	mkdir -p '$(HOME)/Library/Screen Savers'
+	ditto screensaver/build/1puni-Tynningo.saver '$(HOME)/Library/Screen Savers/1puni-Tynningo.saver'
+	codesign --verify --deep --strict '$(HOME)/Library/Screen Savers/1puni-Tynningo.saver'

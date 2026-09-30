@@ -5,6 +5,9 @@ SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 SAVER_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
 OUTPUT=$1
 shift
+MODULE_NAME=${SAVER_MODULE_NAME:-OpenHelmChartSaver}
+EDITION_FLAGS=
+if [ "$MODULE_NAME" = OnePuniTynningoSaver ]; then EDITION_FLAGS='-D ONEPUNI_EDITION'; fi
 [ "$#" -gt 0 ] || set -- arm64
 
 export SWIFTPM_MODULECACHE_OVERRIDE="$SAVER_ROOT/.build/module-cache"
@@ -19,7 +22,7 @@ for ARCH in "$@"; do
   xcrun swiftc \
     -module-cache-path "$SAVER_ROOT/.build/module-cache" \
     -target "$TARGET" -O -whole-module-optimization -parse-as-library \
-    -module-name OpenHelmChartSaver \
+    -module-name "$MODULE_NAME" $EDITION_FLAGS \
     -I "$BIN_DIR/Modules" -L "$BIN_DIR" -lOpenHelmChartSaverCore \
     -framework AppKit -framework QuartzCore -framework ScreenSaver -framework ImageIO \
     -emit-library -Xlinker -bundle \

@@ -56,7 +56,7 @@ for id in ids {
     defaults.synchronize()
     let view = makeView()
     view.startAnimation()
-    for _ in 0..<90 {
+    for _ in 0..<180 {
         view.animateOneFrame()
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 1.0 / 30))
     }
@@ -64,6 +64,18 @@ for id in ids {
     guard let layers = view.layer?.sublayers, layers.count == 3,
           layers[0].contents != nil, layers[1].mask?.contents != nil else {
         fail("\(id): chart, beam mask or core missing")
+    }
+    let hasInscription = FileManager.default.fileExists(
+        atPath: scenesRoot.appendingPathComponent(id).appendingPathComponent("inscription.json").path
+    )
+    let inscription = layers[0].sublayers?.first { $0.name == "chart-inscription" }
+    guard hasInscription == (inscription != nil) else { fail("\(id): inscription did not load") }
+    if let inscription {
+        guard inscription.sublayers?.first?.contents != nil,
+              let label = inscription.sublayers?.last as? CATextLayer,
+              let text = label.string as? NSAttributedString, !text.string.isEmpty else {
+            fail("\(id): logo or inscription text missing")
+        }
     }
     let sceneCredits = view.configureSheet?.contentView?.subviews
         .compactMap { ($0 as? NSScrollView)?.documentView as? NSTextView }.first?.string ?? ""
@@ -78,6 +90,6 @@ for id in ids {
         let rep = NSBitmapImageRep(cgImage: context.makeImage()!)
         try! rep.representation(using: .png, properties: [:])!.write(to: snapshotDirectory.appendingPathComponent("\(id).png"))
     }
-    print("\(id): loaded from bundle, 90 frames animated, credits present")
+    print("\(id): loaded from bundle, 180 frames animated, credits and artwork verified")
 }
 print("verified dynamic load of \(bundlePath): \(ids.count) scenes; no installation")

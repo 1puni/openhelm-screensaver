@@ -11,10 +11,11 @@ RESOURCES="$BUNDLE/Contents/Resources"
 test -d "$BUNDLE" || { echo "missing saver bundle: $BUNDLE" >&2; exit 1; }
 plutil -lint "$INFO" >/dev/null
 test "$(plutil -extract CFBundleExecutable raw -o - "$INFO")" = "OpenHelmChartSaver"
-test "$(plutil -extract NSPrincipalClass raw -o - "$INFO")" = "OpenHelmChartSaverView"
+PRINCIPAL=$(plutil -extract NSPrincipalClass raw -o - "$INFO")
+case "$PRINCIPAL" in OpenHelmChartSaverView|OnePuniTynningoSaverView) ;; *) exit 1 ;; esac
 test -x "$EXECUTABLE"
 file "$EXECUTABLE" | grep -q 'Mach-O 64-bit bundle arm64'
-nm -gU "$EXECUTABLE" | grep -Fq '_OBJC_CLASS_$_OpenHelmChartSaverView'
+nm -gU "$EXECUTABLE" | grep -Fq "_OBJC_CLASS_\$_$PRINCIPAL"
 codesign --verify --deep --strict "$BUNDLE"
 verify_scene() {
   SCENE_DIR=$1

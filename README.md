@@ -53,3 +53,9 @@ explicitly synthetic. `SOURCE_MANIFEST.json` lists every file with its SHA-256.
 Original code: [MIT](LICENSE), copyright 2026 OpenHelm contributors, with existing
 authorship retained. This licence does not relicense chart data (each source keeps its own
 terms above) or system fonts, which are used locally for rendering and not distributed.
+
+## 1puni island edition
+
+[1puni — Tynningö](docs/1puni-tynningo.md) is an additional native saver with the
+original unicorn emblem and `1puni.com` set into the island. `make brand` builds
+its separate bundle; `make install-brand` installs it for the current user.

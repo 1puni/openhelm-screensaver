@@ -109,6 +109,7 @@ struct OpenHelmChartSaverViewTests {
             let layers = try #require(root.sublayers)
             #expect(layers.count == 3)
             let chart = layers[0]
+            #expect(chart.sublayers?.isEmpty ?? true)
             let beamContainer = layers[1]
             let visibilityMask = try #require(beamContainer.mask)
             let beams = try #require(beamContainer.sublayers)
@@ -147,6 +148,37 @@ struct OpenHelmChartSaverViewTests {
             #expect(!CATransform3DEqualToTransform(firstBeam.transform, firstTransform))
             #expect(!CATransform3DEqualToTransform(secondBeam.transform, secondTransform))
             #expect(core.opacity == 1)
+        }
+    }
+
+    @Test func inscriptionFollowsChartThroughResizeAndStaysFixedDuringSweep() throws {
+        try withResources(scene: scene(), pngData: pngData(), visibilityPNGData: pngData()) {
+            sceneURL, directory in
+            try pngData().write(to: directory.appendingPathComponent("logo.png"))
+            try Data(#"{"image":"logo.png","text":"1puni.com","centerX":0.49,"centerY":0.245,"width":440,"rotationDegrees":-36}"#.utf8)
+                .write(to: directory.appendingPathComponent("inscription.json"))
+            let view = try #require(OpenHelmChartSaverView(
+                frame: CGRect(x: 0, y: 0, width: 100, height: 100), isPreview: false,
+                sceneURL: sceneURL, resourceDirectory: directory
+            ))
+            for size in [CGSize(width: 100, height: 100), CGSize(width: 200, height: 100),
+                         CGSize(width: 100, height: 200)] {
+                view.frame.size = size
+                view.needsLayout = true
+                view.layoutSubtreeIfNeeded()
+                let chart = try #require(view.layer?.sublayers?.first)
+                let mark = try #require(chart.sublayers?.first)
+                #expect(mark.name == "chart-inscription")
+                #expect(abs(mark.position.x / chart.bounds.width - 0.49) < 0.0001)
+                #expect(abs(mark.position.y / chart.bounds.height - 0.755) < 0.0001)
+                #expect(mark.sublayers?.count == 2)
+                let position = mark.position
+                let transform = mark.transform
+                view.renderPreviewFrame(at: 1.5)
+                view.renderPreviewFrame(at: 2.75)
+                #expect(mark.position == position)
+                #expect(CATransform3DEqualToTransform(mark.transform, transform))
+            }
         }
     }
 

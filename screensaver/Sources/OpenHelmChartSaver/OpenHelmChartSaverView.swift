@@ -1,5 +1,6 @@
 import AppKit
 import CoreGraphics
+import CoreImage
 import ImageIO
 import OpenHelmChartSaverCore
 import OSLog
@@ -69,7 +70,11 @@ public func discoverSaverCatalog(in root: URL) -> [SaverCatalogEntry] {
 }
 
 @MainActor
+#if ONEPUNI_EDITION
+@objc(OnePuniTynningoSaverView)
+#else
 @objc(OpenHelmChartSaverView)
+#endif
 public final class OpenHelmChartSaverView: ScreenSaverView {
     private static let logger = Logger(
         subsystem: "com.openhelm.ChartSaver",
@@ -77,6 +82,8 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
     )
 
     private let chartLayer = CALayer()
+    private var inscriptionLayer: CALayer?
+    private var inscription: ChartInscription?
     private let beamContainerLayer = CALayer()
     private let lightVisibilityLayer = CALayer()
     private var beamLayers: [CAGradientLayer] = []
@@ -292,6 +299,7 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
         chartLayer.contentsGravity = .resize
         chartLayer.minificationFilter = .trilinear
         chartLayer.magnificationFilter = .linear
+        configureInscription()
 
         lightVisibilityLayer.contents = lightVisibilityImage
         lightVisibilityLayer.contentsGravity = .resize
@@ -374,6 +382,17 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
         CATransaction.setDisableActions(true)
         chartLayer.frame = chartLayout.frame
         chartLayer.contentsScale = backingScale
+        if let inscription, let inscriptionLayer {
+            let scale = chartLayout.frame.width / CGFloat(scene.chart.logicalWidth)
+            inscriptionLayer.position = CGPoint(
+                x: chartLayer.bounds.width * inscription.centerX,
+                y: chartLayer.bounds.height * (1 - inscription.centerY)
+            )
+            inscriptionLayer.transform = CATransform3DConcat(
+                CATransform3DMakeScale(scale, scale, 1),
+                CATransform3DMakeRotation(inscription.rotationDegrees * .pi / 180, 0, 0, 1)
+            )
+        }
         beamContainerLayer.frame = bounds
         lightVisibilityLayer.frame = chartLayout.frame
         lightVisibilityLayer.contentsScale = backingScale
@@ -390,6 +409,75 @@ public final class OpenHelmChartSaverView: ScreenSaverView {
 
     public override func animateOneFrame() {
         renderPreviewFrame(at: ProcessInfo.processInfo.systemUptime)
+    }
+
+    /// Optional scene artwork is anchored in chart coordinates, so it stays part of the
+    /// island at every display size. The original logo remains unchanged on disk.
+    private struct ChartInscription: Decodable {
+        let image: String
+        let text: String
+        let centerX: Double
+        let centerY: Double
+        let width: Double
+        let rotationDegrees: Double
+    }
+
+    private func configureInscription() {
+        inscriptionLayer?.removeFromSuperlayer()
+        inscriptionLayer = nil
+        inscription = nil
+        guard let directory = activeDirectory else { return }
+        let file = directory.appendingPathComponent("inscription.json")
+        guard FileManager.default.fileExists(atPath: file.path) else { return }
+        do {
+            let spec = try JSONDecoder().decode(ChartInscription.self, from: Data(contentsOf: file))
+            guard spec.width.isFinite, (40...1000).contains(spec.width),
+                  (0...1).contains(spec.centerX), (0...1).contains(spec.centerY),
+                  spec.rotationDegrees.isFinite,
+                  URL(fileURLWithPath: spec.image).lastPathComponent == spec.image,
+                  let input = CIImage(contentsOf: directory.appendingPathComponent(spec.image)) else {
+                throw SaverResourceError.invalidImage("inscription")
+            }
+            // Convert the monochrome ink to a mask at load time. The white paper disappears;
+            // fine antialiasing survives. This is drawn once, never in the animation loop.
+            let mask = input.applyingFilter("CIColorMatrix", parameters: [
+                "inputRVector": CIVector(x: 0, y: 0, z: 0, w: 0),
+                "inputGVector": CIVector(x: 0, y: 0, z: 0, w: 0),
+                "inputBVector": CIVector(x: 0, y: 0, z: 0, w: 0),
+                "inputAVector": CIVector(x: -0.2126, y: -0.7152, z: -0.0722, w: 0),
+                "inputBiasVector": CIVector(x: 0.68, y: 0.65, z: 0.55, w: 1),
+            ])
+            guard let logo = CIContext().createCGImage(mask, from: input.extent) else {
+                throw SaverResourceError.invalidImage(spec.image)
+            }
+            let group = CALayer()
+            group.name = "chart-inscription"
+            group.bounds = CGRect(x: 0, y: 0, width: spec.width, height: 136)
+            group.opacity = 0.82
+            let emblem = CALayer()
+            emblem.contents = logo
+            emblem.frame = CGRect(x: 0, y: 8, width: 113, height: 120)
+            emblem.minificationFilter = .trilinear
+            let label = CATextLayer()
+            label.string = NSAttributedString(string: spec.text, attributes: [
+                .font: NSFont(name: "Georgia-Bold", size: 53) ?? NSFont.boldSystemFont(ofSize: 53),
+                .foregroundColor: NSColor(calibratedRed: 0.68, green: 0.65, blue: 0.55, alpha: 1),
+                .kern: -1.4,
+            ])
+            label.frame = CGRect(x: 132, y: 32, width: spec.width - 132, height: 66)
+            label.contentsScale = 2
+            group.addSublayer(emblem)
+            group.addSublayer(label)
+            group.shadowColor = NSColor.black.cgColor
+            group.shadowOpacity = 0.65
+            group.shadowRadius = 1
+            group.shadowOffset = CGSize(width: 0, height: -1.5)
+            chartLayer.addSublayer(group)
+            inscription = spec
+            inscriptionLayer = group
+        } catch {
+            Self.logger.error("Chart inscription unavailable: \(String(describing: error), privacy: .public)")
+        }
     }
 
     public func renderPreviewFrame(at uptime: TimeInterval) {

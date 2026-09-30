@@ -17,6 +17,12 @@ trap 'rm -rf "$STAGE"' EXIT INT TERM
 rm -rf "$STAGE"
 mkdir -p "$STAGE/Contents/MacOS" "$STAGE/Contents/Resources/Scenes"
 cp "$INFO_SOURCE" "$STAGE/Contents/Info.plist"
+if SAVER_MODULE_NAME=$(plutil -extract OpenHelmModuleName raw -o - "$INFO_SOURCE" 2>/dev/null); then
+  :
+else
+  SAVER_MODULE_NAME=OpenHelmChartSaver
+fi
+export SAVER_MODULE_NAME
 "$SCRIPT_DIR/compile-saver.sh" "$STAGE/Contents/MacOS/OpenHelmChartSaver" arm64 x86_64
 for SCENE_ARG in "$@"; do
   SCENE_SOURCE="$(CDPATH= cd -- "$(dirname -- "$SCENE_ARG")" && pwd)/$(basename -- "$SCENE_ARG")"
